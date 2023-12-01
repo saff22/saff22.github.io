@@ -37,3 +37,31 @@ function setTheme(mode) {
 
   localStorage.setItem("theme", mode);
 }
+
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  // Fetch form data
+  var formData = new FormData(this);
+
+  // Send form data to the server
+  fetch(this.action, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // Handle the response from the server if needed
+    return response.text();
+  })
+  .then(data => {
+    console.log('Form data sent successfully:', data);
+    // You can display a success message or redirect the user here
+  })
+  .catch(error => {
+    console.error('Error sending form data:', error);
+    // You can display an error message to the user here
+  });
+});
